@@ -4,11 +4,19 @@
     <title>Golf</title>
     <%= csrf_meta_tags %>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="nav has-shadow">
+      <div class="container">
+        <div class="nav-left"><a class="nav-item" href="/"><h1>GOLF</h1></a></div>
+      </div>
+    </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
