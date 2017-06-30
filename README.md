@@ -1,24 +1,11 @@
-# README
+# GOLF
+## A Tee Time Bulk Scheduler
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+How to use:
 
-Things you may want to cover:
+* install gems
+* setup DB
+* start server
+* go to localhost:3000
+* upload test.csv
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
