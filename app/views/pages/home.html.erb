@@ -1,2 +1,73 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="content">
+  <div class="columns">
+    <div class="column is-one-third">
+      <h1>Submit CSV</h1>
+      <%= form_tag({action: :upload}, multipart: true) do %>
+        <div class="field">
+          <p class="control">
+            <%= file_field_tag 'csv', class: "input file-input" %>
+          </p>
+        </div>
+        <%= submit_tag "Upload", class: "button is-primary" %>
+      <% end %>
+    </div>
+
+    <div class="column">
+      <div class="box">
+        <h1>Scheduled Tee Times</h1>
+        <% if @valid_tees.empty? %>
+          <p>There aren't any scheduled tee times :(</p>
+        <% else %>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>User Email</th>
+              <th>Datetime</th>
+              <th>Club Name</th>
+            </tr>
+            </thead>
+            <tbody>
+              <% @valid_tees.each do |tee| %>
+                <tr>
+                  <td><%= tee.user.email %></td>
+                  <td><%= tee.datetime %></td>
+                  <td><%= tee.club.name %></td>
+                </tr>
+              <% end%>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+
+      <div class="box">
+        <h1>Failed Tee Times</h1>
+        <% if @invalid_tees.empty? %>
+          <p>There aren't any invalid tee times. :D</p>
+        <% else %>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>User Email</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Number Time Slots</th>
+              <th>Club Name</th>
+            </tr>
+            </thead>
+            <tbody>
+              <% @invalid_tees.each do |tee| %>
+                <tr>
+                  <td><%= tee.user.email %></td>
+                  <td><%= tee.start_date %></td>
+                  <td><%= tee.end_date %></td>
+                  <td><%= tee.number_time_slots %></td>
+                  <td><%= tee.club.name %></td>
+                </tr>
+              <% end%>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  club: one
+  datetime: 2017-06-28 23:06:54
+
+two:
+  user: two
+  club: two
+  datetime: 2017-06-28 23:06:54

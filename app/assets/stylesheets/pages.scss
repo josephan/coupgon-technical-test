@@ -3,5 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 nav {
+  min-height: 5em;
   margin-bottom: 2em;
+
+  .nav-item {
+    font-size: 2em;
+  }
+}
+
+.file-input {
+  max-width: 300px;
 }
