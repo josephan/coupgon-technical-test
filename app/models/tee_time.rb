@@ -12,7 +12,7 @@ class TeeTime
 
     @scheduled_tees = []
 
-    @last_saved_user_tee = get_last_saved_user_tee
+    @all_saved_user_tee = get_all_saved_user_tee
   end
 
   def schedule
@@ -49,7 +49,6 @@ class TeeTime
     if valid_tee_time?(time_slot)
       time_slot
     else
-      debugger
       go_to_next_day(time_slot)
     end
   end
@@ -66,15 +65,24 @@ class TeeTime
   # tee time must be 3 hours before close (2pm), after 9am,
   # and 3 hours before end time
   def valid_tee_time?(datetime)
-    before_5pm = (datetime.hour <= 13) || (datetime.hour <= 14 && datetime.min == 0)
+    before_5pm = (datetime.hour <= 16 && datetime.min <= 40)
     after_9am  = datetime.hour >= 9
     before_end_date = (datetime + 3.hours) <=  @end_time
     return before_5pm && after_9am && before_end_date
   end
 
   def next_user_time
-    all_tees = (@last_saved_user_tee + @scheduled_tees).select { |x| x }
-    all_tees.empty? ? @start_time : all_tees[-1] + 3.hours
+    all_tees = (@all_saved_user_tee + @scheduled_tees).select { |x| x }
+    debugger
+    all_tees.empty? ? @start_time : earliest_time(all_tees)
+  end
+
+  def earliest_time(arr_of_times)
+    arr_of_times.each_with_index do |time, i|
+      return (time + 3.hours) if i == arr_of_times.length - 1
+      return (time + 3.hours) if (time + 6.hours) <= arr_of_times[i+1]
+    end
+    arr_of_times[-1] + 3.hours
   end
 
   def check_club_times(datetime)
@@ -86,10 +94,9 @@ class TeeTime
     end
   end
 
-  def get_last_saved_user_tee
+  def get_all_saved_user_tee
     @user.valid_tees.where(datetime: @start_time..@end_time)
       .order(datetime: :desc)
-      .limit(1)
       .pluck(:datetime)
   end
 end
